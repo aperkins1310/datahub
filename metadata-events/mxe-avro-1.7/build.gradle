@@ -1,8 +1,10 @@
+import com.github.davidmc24.gradle.plugin.avro.GenerateAvroJavaTask
+
 configurations {
   avsc
 }
 
-apply plugin: 'com.commercehub.gradle.plugin.avro'
+apply plugin: 'com.github.davidmc24.gradle.plugin.avro-base'
 apply plugin: 'java'
 
 dependencies {
@@ -21,7 +23,7 @@ dependencies {
 
 def genDir = file("src/generated/java")
 
-task avroCodeGen(type: com.commercehub.gradle.plugin.avro.GenerateAvroJavaTask, dependsOn: configurations.avsc) {
+task avroCodeGen(type: GenerateAvroJavaTask, dependsOn: configurations.avsc) {
   source("$rootDir/metadata-events/mxe-schemas/src/renamed/avro")
   outputDir = genDir
   dependsOn(':metadata-events:mxe-schemas:renameNamespace')
